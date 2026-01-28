@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - FDASSC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: #000;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .logo-text {
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #d4af36;
+        }
+
+        .nav-menu .btn-nav {
+            background: #d4af36;
+            color: #000;
+            padding: 10px 22px;
+            border-radius: 999px;
+        }
+
+        .nav-menu .btn-nav:hover {
+            background: #c19d2e;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.15;
+        }
+
+        .section-title .highlight {
+            color: #d4af36;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #999;
+        }
+
+        /* Events Hero Carousel */
+        .events-hero {
+            padding: 120px 20px 60px;
+            background: #000;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+            height: 600px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+        }
+
+        .carousel-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        .carousel-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: 1;
+        }
+
+        .carousel-title {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .carousel-date {
+            font-size: 18px;
+            color: #d4af36;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .carousel-description {
+            font-size: 18px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(212, 175, 54, 0.9);
+            color: #000;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .carousel-nav:hover {
+            background: #d4af36;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav.prev {
+            left: 20px;
+        }
+
+        .carousel-nav.next {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-indicator.active {
+            background: #d4af36;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        .carousel-thumbnails {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .carousel-thumbnail {
+            width: 120px;
+            height: 80px;
+            background: #1a1a1a;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .carousel-thumbnail:hover,
+        .carousel-thumbnail.active {
+            border-color: #d4af36;
+            transform: scale(1.05);
+        }
+
+        /* Events Section */
+        .events {
+            padding: 100px 20px;
+            background: #000;
+        }
+
+        .calendar-year {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #d4af36;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .event-card {
+            background: #0a0a0a;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid #1a1a1a;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            border-color: #d4af36;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 250px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .event-month {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #d4af36;
+            color: #000;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .event-content {
+            padding: 30px;
+        }
+
+        .event-date {
+            font-size: 14px;
+            color: #d4af36;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .event-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .event-description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .event-details {
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #1a1a1a;
+            padding-top: 15px;
+        }
+
+        .event-details strong {
+            color: #d4af36;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 80px 20px 40px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #d4af36;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #d4af36;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #1a1a1a;
+            font-family: 'DM Sans', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .newsletter-form button {
+            padding: 12px 24px;
+            background: #d4af36;
+            color: #000;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #c19d2e;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #d4af36;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .carousel-slide {
+                height: 500px;
+            }
+
+            .carousel-title {
+                font-size: 42px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-slide {
+                height: 400px;
+            }
+
+            .carousel-title {
+                font-size: 32px;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .carousel-thumbnail {
+                width: 80px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <img src="logo.jpg" alt="FDASSC Logo" class="logo-image">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="dancestyles.html">Dance Styles</a></li>
+                    <li><a href="instructors.html">Instructors</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html#contact" class="btn-nav">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Events Hero Carousel -->
+    <section class="events-hero">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming <span class="highlight">Events</span></h2>
+                <p class="section-subtitle">Join us for unforgettable dance experiences throughout the year</p>
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide" style="background-image: url('event-jan.jpg');">
+                        <div class="carousel-content">
+                            <p class="carousel-date">January 15, 2026</p>
+                            <h3 class="carousel-title">New Year Social Dance</h3>
+                            <p class="carousel-description">Kick off the new year with an elegant evening of social dancing. All levels welcome!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('event-feb.jpg');">
+                        <div class="carousel-content">
+                            <p class="carousel-date">February 14, 2026</p>
+                            <h3 class="carousel-title">Valentine's Tango Milonga</h3>
+                            <p class="carousel-description">Celebrate love with an intimate tango milonga. Romantic ambiance, live music, and passionate dancing.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('event-mar.jpg');">
+                        <div class="carousel-content">
+                            <p class="carousel-date">March 8, 2026</p>
+                            <h3 class="carousel-title">Spring Ballroom Workshop Series</h3>
+                            <p class="carousel-description">Intensive weekend workshop covering all standard ballroom dances with master instructors.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('event-apr.jpg');">
+                        <div class="carousel-content">
+                            <p class="carousel-date">April 12, 2026</p>
+                            <h3 class="carousel-title">Corporate Wellness Showcase</h3>
+                            <p class="carousel-description">Experience our corporate wellness programs with team building and stress-relief dance sessions.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide" style="background-image: url('event-may.jpg');">
+                        <div class="carousel-content">
+                            <p class="carousel-date">May 24-25, 2026</p>
+                            <h3 class="carousel-title">National Dance Competition</h3>
+                            <p class="carousel-description">Annual competition showcasing the best ballroom and Latin dancers from across the Philippines.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-nav prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="carousel-nav next" onclick="moveCarousel(1)">&#10095;</button>
+
+                <div class="carousel-indicators">
+                    <button class="carousel-indicator active" onclick="goToSlide(0)"></button>
+                    <button class="carousel-indicator" onclick="goToSlide(1)"></button>
+                    <button class="carousel-indicator" onclick="goToSlide(2)"></button>
+                    <button class="carousel-indicator" onclick="goToSlide(3)"></button>
+                    <button class="carousel-indicator" onclick="goToSlide(4)"></button>
+                </div>
+            </div>
+
+            <div class="carousel-thumbnails">
+                <div class="carousel-thumbnail active" style="background-image: url('event-jan.jpg');" onclick="goToSlide(0)"></div>
+                <div class="carousel-thumbnail" style="background-image: url('event-feb.jpg');" onclick="goToSlide(1)"></div>
+                <div class="carousel-thumbnail" style="background-image: url('event-mar.jpg');" onclick="goToSlide(2)"></div>
+                <div class="carousel-thumbnail" style="background-image: url('event-apr.jpg');" onclick="goToSlide(3)"></div>
+                <div class="carousel-thumbnail" style="background-image: url('event-may.jpg');" onclick="goToSlide(4)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Grid Section -->
+    <section class="events">
+        <div class="container">
+            <div class="calendar-year">2026 EVENT CALENDAR</div>
+
+            <div class="events-grid">
+                <!-- January -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-jan.jpg');">
+                        <div class="event-month">JANUARY</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">January 15, 2026</div>
+                        <h3 class="event-title">New Year Social Dance</h3>
+                        <p class="event-description">Kick off the new year with an elegant evening of social dancing. All levels welcome! Network with fellow dancers and celebrate the start of a new dance season.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> The Grand Ballroom, Makati<br>
+                            <strong>Time:</strong> 7:00 PM - 11:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- February -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-feb.jpg');">
+                        <div class="event-month">FEBRUARY</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">February 14, 2026</div>
+                        <h3 class="event-title">Valentine's Tango Milonga</h3>
+                        <p class="event-description">Celebrate love with an intimate tango milonga. Romantic ambiance, live music, and passionate dancing. Bring your partner or find one at the event!</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> Tango Villa, Quezon City<br>
+                            <strong>Time:</strong> 8:00 PM - 12:00 AM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- March -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-mar.jpg');">
+                        <div class="event-month">MARCH</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">March 8, 2026</div>
+                        <h3 class="event-title">Spring Ballroom Workshop Series</h3>
+                        <p class="event-description">Intensive weekend workshop covering all standard ballroom dances with master instructors. Perfect for competition preparation or skill enhancement.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> FDASSC Dance Studio<br>
+                            <strong>Time:</strong> 9:00 AM - 6:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- April -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-apr.jpg');">
+                        <div class="event-month">APRIL</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">April 12, 2026</div>
+                        <h3 class="event-title">Corporate Wellness Showcase</h3>
+                        <p class="event-description">Demonstration of our corporate wellness programs featuring team building exercises and stress-relief dance sessions.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> BGC Corporate Hub<br>
+                            <strong>Time:</strong> 2:00 PM - 5:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- May -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-may.jpg');">
+                        <div class="event-month">MAY</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">May 24-25, 2026</div>
+                        <h3 class="event-title">National Dance Competition</h3>
+                        <p class="event-description">Annual competition showcasing the best ballroom and Latin dancers from across the Philippines. All levels welcome!</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> SMX Convention Center<br>
+                            <strong>Time:</strong> 10:00 AM - 8:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- June -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-jun.jpg');">
+                        <div class="event-month">JUNE</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">June 14, 2026</div>
+                        <h3 class="event-title">Wedding Dance Preparation Workshop</h3>
+                        <p class="event-description">Special workshop for engaged couples preparing for their first dance. Learn choreography tailored to your wedding song.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> FDASSC Studio<br>
+                            <strong>Time:</strong> 1:00 PM - 5:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- July -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-jul.jpg');">
+                        <div class="event-month">JULY</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">July 18, 2026</div>
+                        <h3 class="event-title">Summer Dance Festival</h3>
+                        <p class="event-description">A full day of dance performances, workshops, and social dancing. Free entry for FDASSC members!</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> Quezon City Memorial Circle<br>
+                            <strong>Time:</strong> 3:00 PM - 10:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- August -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-aug.jpg');">
+                        <div class="event-month">AUGUST</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">August 8, 2026</div>
+                        <h3 class="event-title">International Guest Instructor Series</h3>
+                        <p class="event-description">Master classes with world-renowned instructors from Argentina, USA, and Europe. Limited slots available.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> FDASSC Studio<br>
+                            <strong>Time:</strong> 10:00 AM - 8:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- September -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-sep.jpg');">
+                        <div class="event-month">SEPTEMBER</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">September 20, 2026</div>
+                        <h3 class="event-title">Ballroom Showcase & Social</h3>
+                        <p class="event-description">Evening of elegant ballroom performances followed by social dancing. Dress code: Semi-formal to formal attire.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> Grand Hyatt Manila<br>
+                            <strong>Time:</strong> 6:00 PM - 11:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- October -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-oct.jpg');">
+                        <div class="event-month">OCTOBER</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">October 31, 2026</div>
+                        <h3 class="event-title">Halloween Costume Dance Party</h3>
+                        <p class="event-description">Spooky dance party with costume contest, live DJ, and special dance performances. Prizes for best costumes!</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> The Palace Pool Club<br>
+                            <strong>Time:</strong> 8:00 PM - 1:00 AM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- November -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-nov.jpg');">
+                        <div class="event-month">NOVEMBER</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">November 15, 2026</div>
+                        <h3 class="event-title">Annual FDASSC Charity Gala</h3>
+                        <p class="event-description">Fundraising gala supporting dance education for underprivileged youth. Featuring performances and silent auction.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> Manila Hotel<br>
+                            <strong>Time:</strong> 6:00 PM - 11:00 PM
+                        </div>
+                    </div>
+                </div>
+
+                <!-- December -->
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('event-dec.jpg');">
+                        <div class="event-month">DECEMBER</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">December 20, 2026</div>
+                        <h3 class="event-title">Holiday Dance Celebration</h3>
+                        <p class="event-description">End the year with our festive dance celebration! Student performances, awards ceremony, and holiday social dancing.</p>
+                        <div class="event-details">
+                            <strong>Venue:</strong> FDASSC Main Studio<br>
+                            <strong>Time:</strong> 5:00 PM - 11:00 PM
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <img src="logo.jpg" alt="FDASSC Logo" class="logo-image">
+                    </div>
+                    <p>Filipino Dance Artists Society Service Cooperative - Where passion meets professionalism. Elevating dance education, corporate wellness, and event excellence across the Philippines.</p>
+                    <p>+63 956 124 3591<br>info@fdassc.com<br>NCR & CALABARZON</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="dancestyles.html">Dance Styles</a></li>
+                        <li><a href="instructors.html">Instructors</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="index.html#services">Corporate Wellness</a></li>
+                        <li><a href="index.html#services">Elite Events</a></li>
+                        <li><a href="index.html#services">Private Instruction</a></li>
+                        <li><a href="events.html">Event Calendar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Dance Styles</h3>
+                    <ul>
+                        <li><a href="dancestyles.html">Ballroom Dance</a></li>
+                        <li><a href="dancestyles.html">Afro-Latin Dance</a></li>
+                        <li><a href="dancestyles.html">Argentine Tango</a></li>
+                        <li><a href="dancestyles.html">Wedding Dance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Stay in the Rhythm</h3>
+                    <p>Subscribe to our newsletter for updates on events, workshops, and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Filipino Dance Artists Society Service Cooperative. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cooperative Registration</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const thumbnails = document.querySelectorAll('.carousel-thumbnail');
+        const wrapper = document.querySelector('.carousel-wrapper');
+
+        function goToSlide(n) {
+            currentSlide = n;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+
+            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function moveCarousel(direction) {
+            goToSlide(currentSlide + direction);
+        }
+
+        // Auto-advance carousel every 5 seconds
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
+    </script>
+</body>
+</html>

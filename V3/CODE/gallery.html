@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - FDASSC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: #000;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-image {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .logo-text {
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #d4af36;
+        }
+
+        .nav-menu .btn-nav {
+            background: #d4af36;
+            color: #000;
+            padding: 10px 22px;
+            border-radius: 999px;
+        }
+
+        .nav-menu .btn-nav:hover {
+            background: #c19d2e;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.15;
+        }
+
+        .section-title .highlight {
+            color: #d4af36;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #999;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 150px 20px 100px;
+            background: #000;
+        }
+
+        .gallery-filters {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #fff;
+            border-radius: 999px;
+            color: #fff;
+            padding: 12px 30px;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #d4af36;
+            color: #000;
+            border-color: #d4af36;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .gallery-item {
+            height: 300px;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 80px 20px 40px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #d4af36;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #d4af36;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #1a1a1a;
+            font-family: 'DM Sans', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .newsletter-form button {
+            padding: 12px 24px;
+            background: #d4af36;
+            color: #000;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #c19d2e;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-bottom p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #d4af36;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <img src="logo.jpg" alt="FDASSC Logo" class="logo-image">
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="dancestyles.html">Dance Styles</a></li>
+                    <li><a href="instructors.html">Instructors</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html#contact" class="btn-nav">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Gallery</h2>
+                <p class="section-subtitle">Moments of passion, elegance, and artistry</p>
+            </div>
+
+            <div class="gallery-filters">
+                <button class="filter-btn active">ALL</button>
+                <button class="filter-btn">SOCIALS</button>
+                <button class="filter-btn">EVENTS</button>
+                <button class="filter-btn">PERFORMANCES</button>
+                <button class="filter-btn">WORKSHOP</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item" style="background-image: url('gallery1.jpg');">Gallery 1</div>
+                <div class="gallery-item" style="background-image: url('gallery2.jpg');">Gallery 2</div>
+                <div class="gallery-item" style="background-image: url('gallery3.jpg');">Gallery 3</div>
+                <div class="gallery-item" style="background-image: url('gallery4.jpg');">Gallery 4</div>
+                <div class="gallery-item" style="background-image: url('gallery5.jpg');">Gallery 5</div>
+                <div class="gallery-item" style="background-image: url('gallery6.jpg');">Gallery 6</div>
+                <div class="gallery-item" style="background-image: url('gallery7.jpg');">Gallery 7</div>
+                <div class="gallery-item" style="background-image: url('gallery8.jpg');">Gallery 8</div>
+                <div class="gallery-item" style="background-image: url('gallery9.jpg');">Gallery 9</div>
+                <div class="gallery-item" style="background-image: url('gallery10.jpg');">Gallery 10</div>
+                <div class="gallery-item" style="background-image: url('gallery11.jpg');">Gallery 11</div>
+                <div class="gallery-item" style="background-image: url('gallery12.jpg');">Gallery 12</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 20px;">
+                        <img src="logo.jpg" alt="FDASSC Logo" class="logo-image">
+                    </div>
+                    <p>Filipino Dance Artists Society Service Cooperative - Where passion meets professionalism. Elevating dance education, corporate wellness, and event excellence across the Philippines.</p>
+                    <p>+63 956 124 3591<br>info@fdassc.com<br>NCR & CALABARZON</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="dancestyles.html">Dance Styles</a></li>
+                        <li><a href="instructors.html">Instructors</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="index.html#services">Corporate Wellness</a></li>
+                        <li><a href="index.html#services">Elite Events</a></li>
+                        <li><a href="index.html#services">Private Instruction</a></li>
+                        <li><a href="events.html">Event Calendar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Dance Styles</h3>
+                    <ul>
+                        <li><a href="dancestyles.html">Ballroom Dance</a></li>
+                        <li><a href="dancestyles.html">Afro-Latin Dance</a></li>
+                        <li><a href="dancestyles.html">Argentine Tango</a></li>
+                        <li><a href="dancestyles.html">Wedding Dance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Stay in the Rhythm</h3>
+                    <p>Subscribe to our newsletter for updates on events, workshops, and exclusive offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Filipino Dance Artists Society Service Cooperative. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cooperative Registration</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
